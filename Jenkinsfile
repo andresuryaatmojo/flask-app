@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        // Memastikan Python tersedia di agen build
-        python 'Python3'
+        // Ganti 'python' dengan identifier yang tepat
+        'jenkins.plugins.shiningpanda.tools.PythonInstallation' 'Python3'
     }
 
     stages {
@@ -17,21 +17,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the Project...'
-                // Simulasi build, misal kompilasi assets atau database migration
                 sh 'echo "Build complete."'
             }
         }
         stage('Test') {
             steps {
                 echo 'Running Tests...'
-                // Anda perlu memiliki skrip untuk menjalankan test di sini
                 sh 'echo "Tests completed."'
             }
         }
         stage('Lint') {
             steps {
                 echo 'Linting Code...'
-                // Jalankan linter, asumsikan Anda menggunakan flake8 atau sejenisnya
                 sh 'pip install flake8'
                 sh 'flake8 .'
             }
@@ -39,7 +36,6 @@ pipeline {
         stage('Report') {
             steps {
                 echo 'Generating Reports...'
-                // Simulasikan pembuatan laporan, misalnya menghasilkan laporan test coverage
                 sh 'echo "Reports generated."'
             }
         }
