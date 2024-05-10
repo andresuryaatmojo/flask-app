@@ -8,42 +8,55 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                bat 'python -m venv venv'
-                bat 'venv\\Scripts\\activate'
-                bat 'pip install -r requirements.txt'
+                // Ensuring that the virtual environment is activated correctly
+                script {
+                    bat 'python -m venv venv'
+                    bat 'call venv\\Scripts\\activate'
+                    bat 'pip install -r requirements.txt'
+                }
             }
         }
         stage('Build') {
             steps {
-                echo 'Building the Project...'
-                bat 'echo Build complete.'
+                script {
+                    echo 'Building the Project...'
+                    bat 'echo Build complete.'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Running Tests...'
-                bat 'echo Tests completed.'
+                script {
+                    echo 'Running Tests...'
+                    bat 'echo Tests completed.'
+                }
             }
         }
         stage('Lint') {
             steps {
-                echo 'Linting Code...'
-                bat 'pip install flake8'
-                bat 'flake8 .'
+                script {
+                    echo 'Linting Code...'
+                    bat 'pip install flake8'
+                    bat 'flake8 .'
+                }
             }
         }
         stage('Report') {
             steps {
-                echo 'Generating Reports...'
-                bat 'echo Reports generated.'
+                script {
+                    echo 'Generating Reports...'
+                    bat 'echo Reports generated.'
+                }
             }
         }
     }
     post {
         always {
-            echo 'Cleaning up...'
-            bat 'deactivate'
-            bat 'rd /s /q venv'
+            script {
+                echo 'Cleaning up...'
+                bat 'call venv\\Scripts\\deactivate'
+                bat 'rd /s /q venv'
+            }
         }
     }
 }
